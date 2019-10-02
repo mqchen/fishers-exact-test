@@ -2,11 +2,17 @@
 
 This is a javascript implementation for doing Fisher's Exact tests.
 
+Resources to learn about the test:
+
+- https://en.wikipedia.org/wiki/Fisher%27s_exact_test
+- http://vassarstats.net/tab2x2.html
+- http://mathworld.wolfram.com/FishersExactTest.html
+
 ### Usage
 
 Install:
 
-```javascript
+```
 npm i --save fishers-exact-test
 ```
 
