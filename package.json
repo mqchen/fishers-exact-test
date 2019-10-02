@@ -1,0 +1,32 @@
+{
+  "name": "fishers-exact-test",
+  "version": "1.0.0",
+  "description": "Fisher's Exact test implementation in JS.",
+  "main": "index.js",
+  "scripts": {
+    "example": "node example.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mqchen/fishers-exact-test.git"
+  },
+  "keywords": [
+    "statistics",
+    "fisher",
+    "test"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mqchen/fishers-exact-test/issues"
+  },
+  "devDependencies": {
+    "eslint": "^6.3.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "eslint-plugin-react": "^7.14.3"
+  },
+  "homepage": "https://github.com/mqchen/fishers-exact-test#readme"
+}
