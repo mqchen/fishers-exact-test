@@ -1,28 +1,44 @@
-function factorial(num) {
-  if (num < 0) return -1;
-  if (num === 0) return 1;
-  return (num * factorial(num - 1));
+const big = require('big.js');
+
+// Expects big
+function factorial(bigNum) {
+  // const bigNum = typeof num === 'number' ? big(num) : num;
+  if (bigNum.lt(0)) return big(-1);
+  if (bigNum.eq(0)) return big(1);
+  // return (num * factorial(num - 1));
+  return bigNum.times(factorial(bigNum.minus(1)));
 }
 
 // Direction:
 // -1 = left, which means a - 1
 // 1 = right, which means a + 1
 // Returns undefined if cannot extremify any more
-function extremifyMatrix(a2, b2, c2, d2, direction) {
+function extremifyMatrix(a, b, c, d, direction) {
   const extremeMatrix = [
-    a2 + direction,
-    b2 - direction,
-    c2 - direction,
-    d2 + direction
+    a.plus(direction),
+    b.minus(direction),
+    c.minus(direction),
+    d.plus(direction)
   ];
-  if (extremeMatrix.findIndex((el) => el < 0) !== -1) return undefined;
+  if (extremeMatrix.findIndex((el) => el.lt(0)) !== -1) return undefined;
   return extremeMatrix;
 }
 
-function calcExactTest(a2, b2, c2, d2) {
-  const numerator = factorial(a2 + b2) * factorial(c2 + d2) * factorial(a2 + c2) * factorial(b2 + d2);
-  const denominator = (factorial(a2) * factorial(b2) * factorial(c2) * factorial(d2) * factorial(a2 + b2 + c2 + d2));
-  return numerator / denominator;
+function calcExactTest(a, b, c, d) {
+  // const numerator = factorial(a + b) * factorial(c + d)
+  // * factorial(a + c) * factorial(b + d);
+  const numerator = factorial(a.plus(b))
+    .times(factorial(c.plus(d)))
+    .times(factorial(a.plus(c)))
+    .times(factorial(b.plus(d)));
+  // const denominator = (factorial(a) * factorial(b)
+  // * factorial(c) * factorial(d) * factorial(a + b + c + d));
+  const denominator = factorial(a.plus(b).plus(c).plus(d))
+    .times(factorial(a))
+    .times(factorial(b))
+    .times(factorial(c))
+    .times(factorial(d));
+  return parseFloat(numerator.div(denominator), 10);
 }
 
 // Formula: http://mathworld.wolfram.com/FishersExactTest.html
@@ -30,9 +46,14 @@ function calcExactTest(a2, b2, c2, d2) {
 // a   b
 // c   d
 module.exports = (a, b, c, d) => {
+  const bigA = big(a);
+  const bigB = big(b);
+  const bigC = big(c);
+  const bigD = big(d);
+
   // Extremify left
   let leftPValue = 0;
-  let matrix = [a, b, c, d];
+  let matrix = [bigA, bigB, bigC, bigD];
   do {
     leftPValue += calcExactTest(matrix[0], matrix[1], matrix[2], matrix[3]);
     matrix = extremifyMatrix(matrix[0], matrix[1], matrix[2], matrix[3], -1);
@@ -40,15 +61,16 @@ module.exports = (a, b, c, d) => {
 
   // Extremify right
   let rightPValue = 0;
-  matrix = [a, b, c, d];
+  matrix = [bigA, bigB, bigC, bigD];
   do {
     rightPValue += calcExactTest(matrix[0], matrix[1], matrix[2], matrix[3]);
     matrix = extremifyMatrix(matrix[0], matrix[1], matrix[2], matrix[3], 1);
   } while (matrix !== undefined);
 
+  // Tailed
   const oneTailedPValue = Math.min(leftPValue, rightPValue);
   const twoTailedPValue = oneTailedPValue * 2;
-  // Output
+
   return {
     leftPValue,
     rightPValue,
