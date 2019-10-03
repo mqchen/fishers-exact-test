@@ -1,6 +1,6 @@
-# Fisher's Exact test
+# Fisher's exact test
 
-This is a javascript implementation for doing Fisher's Exact tests.
+This is a javascript implementation for doing Fisher's exact tests.
 
 Resources to learn about the test:
 
@@ -21,7 +21,7 @@ Usage:
 ```javascript
 const fishersExactTest = require('fishers-exact-test');
 
-fishersExactTest([1, 9, 11, 3]);
+fishersExactTest(1, 9, 11, 3);
 ```
 
 Output:
