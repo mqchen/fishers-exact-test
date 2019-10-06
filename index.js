@@ -69,7 +69,7 @@ module.exports = (a, b, c, d) => {
 
   // Tailed
   const oneTailedPValue = Math.min(leftPValue, rightPValue);
-  const twoTailedPValue = oneTailedPValue * 2;
+  const twoTailedPValue = Math.min(oneTailedPValue * 2, 1);
 
   return {
     leftPValue,
