@@ -46,6 +46,11 @@ function calcExactTest(a, b, c, d) {
 // a   b
 // c   d
 module.exports = (a, b, c, d) => {
+  // Validate
+  const vals = [a, b, c, d];
+  if (vals.findIndex((v) => v < 0) !== -1) throw new Error('Negative numbers are not supported.');
+  if (vals.findIndex((v) => !Number.isInteger(v)) !== -1) throw new Error('Only positive integers are supported.');
+
   const bigA = big(a);
   const bigB = big(b);
   const bigC = big(c);
